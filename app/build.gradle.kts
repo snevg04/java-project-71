@@ -18,6 +18,8 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     implementation("info.picocli:picocli:4.7.7")
+    implementation("tools.jackson.core:jackson-databind:3.0.4")
+    implementation("tools.jackson.core:jackson-core:3.0.4")
 }
 
 tasks.test {
