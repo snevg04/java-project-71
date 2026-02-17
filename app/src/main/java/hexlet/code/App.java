@@ -8,8 +8,13 @@ import picocli.CommandLine.Parameters;
 import java.io.File;
 import java.math.BigInteger;
 import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.util.concurrent.Callable;
+import java.util.Map;
+
+import tools.jackson.core.type.TypeReference;
+import tools.jackson.databind.ObjectMapper;
 
 import hexlet.code.Differ;
 
@@ -28,9 +33,17 @@ class App implements Callable<Integer> {
     private String format;
 
     @Override
-    public Integer call() throws Exception { // your business logic goes here...
-        System.out.println("filepath1: " + filePath1);
-        System.out.println("filepath2: " + filePath2);
+    public Integer call() throws Exception {
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        Map<String, Object> map1
+                = objectMapper.readValue(new File(filePath1), new TypeReference<Map<String,Object>>(){});
+
+        Map<String, Object> map2
+                = objectMapper.readValue(new File(filePath2), new TypeReference<Map<String, Object>>(){});
+
+        System.out.println("json1: " + map1);
+        System.out.println("json2: " + map2);
         System.out.println("format: " + format);
 
         var diff = Differ.generate(filePath1, filePath2);
