@@ -1,3 +1,4 @@
 # Makefile
-run-dist:
+.PHONY: build
+build:
 	build/install/app/bin/app
