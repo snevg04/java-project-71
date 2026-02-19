@@ -97,37 +97,16 @@ public class Differ {
 
             switch(status) {
                 case "added":
-                    result.append("  + ")
-                            .append(entry.getKey())
-                            .append(": ")
-                            .append(entry.getOldValue())
-                            .append("\n");
+                    buildNormal(result, '+', entry.getKey(), entry.getOldValue());
                     break;
                 case "removed":
-                    result.append("  - ")
-                            .append(entry.getKey())
-                            .append(": ")
-                            .append(entry.getOldValue())
-                            .append("\n");
+                    buildNormal(result, '-', entry.getKey(), entry.getOldValue());
                     break;
                 case "unchanged":
-                    result.append("    ")
-                            .append(entry.getKey())
-                            .append(": ")
-                            .append(entry.getOldValue())
-                            .append("\n");
+                    buildNormal(result, ' ', entry.getKey(), entry.getOldValue());
                     break;
                 case "changed":
-                    result.append("  - ")
-                            .append(entry.getKey())
-                            .append(": ")
-                            .append(entry.getOldValue())
-                            .append("\n");
-                    result.append("  + ")
-                            .append(entry.getKey())
-                            .append(": ")
-                            .append(entry.getNewValue())
-                            .append("\n");
+                    buildChanged(result, entry.getKey(), entry.getOldValue(), entry.getNewValue());
                     break;
                 default:
                     break;
@@ -138,5 +117,27 @@ public class Differ {
 
         return result.toString();
     }
-}
 
+    public static StringBuilder buildNormal(StringBuilder sb, char status, Object key, Object oldValue) {
+        return sb.append("  ")
+                    .append(status)
+                    .append(" ")
+                    .append(key)
+                    .append(": ")
+                    .append(oldValue)
+                    .append("\n");
+    }
+
+    public static StringBuilder buildChanged(StringBuilder sb, String key, Object oldValue, Object newValue) {
+        return sb.append("  - ")
+                .append(key)
+                .append(": ")
+                .append(oldValue)
+                .append("\n")
+                .append("  + ")
+                .append(key)
+                .append(": ")
+                .append(newValue)
+                .append("\n");
+    }
+}
