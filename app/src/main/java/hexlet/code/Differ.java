@@ -5,7 +5,11 @@ import tools.jackson.databind.ObjectMapper;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.Map;
+import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.Objects;
+import java.util.Comparator;
 
 public class Differ {
 
@@ -49,11 +53,12 @@ public class Differ {
 
         Map<String, Object> map1
                 = objectMapper.readValue(file1, new TypeReference<>() {
-        });
+
+                });
 
         Map<String, Object> map2
                 = objectMapper.readValue(file2, new TypeReference<>() {
-        });
+                });
 
         var allKeys = new HashSet<>(map1.keySet());
         allKeys.addAll(map2.keySet());
@@ -95,7 +100,7 @@ public class Differ {
 
             var status = entry.getStatus();
 
-            switch(status) {
+            switch (status) {
                 case "added":
                     buildNormal(result, '+', entry.getKey(), entry.getOldValue());
                     break;
@@ -118,18 +123,18 @@ public class Differ {
         return result.toString();
     }
 
-    public static StringBuilder buildNormal(StringBuilder sb, char status, Object key, Object oldValue) {
-        return sb.append("  ")
-                    .append(status)
-                    .append(" ")
-                    .append(key)
-                    .append(": ")
-                    .append(oldValue)
-                    .append("\n");
+    public static void buildNormal(StringBuilder sb, char status, Object key, Object oldValue) {
+        sb.append("  ")
+                .append(status)
+                .append(" ")
+                .append(key)
+                .append(": ")
+                .append(oldValue)
+                .append("\n");
     }
 
-    public static StringBuilder buildChanged(StringBuilder sb, String key, Object oldValue, Object newValue) {
-        return sb.append("  - ")
+    public static void buildChanged(StringBuilder sb, String key, Object oldValue, Object newValue) {
+        sb.append("  - ")
                 .append(key)
                 .append(": ")
                 .append(oldValue)

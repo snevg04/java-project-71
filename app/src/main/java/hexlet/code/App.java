@@ -5,15 +5,10 @@ import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 
-import java.io.File;
-import java.math.BigInteger;
-import java.security.MessageDigest;
+//import java.io.File;
+//import java.math.BigInteger;
+//import java.security.MessageDigest;
 import java.util.concurrent.Callable;
-
-import tools.jackson.core.type.TypeReference;
-import tools.jackson.databind.ObjectMapper;
-
-import hexlet.code.Differ;
 
 @Command(name = "gendiff", mixinStandardHelpOptions = true, version = "gendiff 1.0",
         description = "Compares two configuration files and shows a difference.")
