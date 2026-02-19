@@ -3,6 +3,7 @@ import sun.jvmstat.monitor.MonitoredVmUtil.mainClass
 plugins {
     id("java")
     id("com.github.ben-manes.versions") version "0.51.0"
+    id("org.sonarqube") version "7.1.0.6387"
     application
     checkstyle
 }
@@ -29,4 +30,11 @@ tasks.test {
 
 application {
     mainClass.set("hexlet.code.App")
+}
+
+sonar {
+    properties {
+        property("sonar.projectKey", "snevg04_java-project-71")
+        property("sonar.organization", "sn-evg-04")
+    }
 }
