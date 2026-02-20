@@ -6,6 +6,7 @@ plugins {
     id("org.sonarqube") version "7.1.0.6387"
     application
     checkstyle
+    jacoco
 }
 
 group = "hexlet.code"
@@ -22,6 +23,8 @@ dependencies {
     implementation("info.picocli:picocli:4.7.7")
     implementation("tools.jackson.core:jackson-databind:3.0.4")
     implementation("tools.jackson.core:jackson-core:3.0.4")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.7.1")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
 tasks.test {
@@ -37,4 +40,8 @@ sonar {
         property("sonar.projectKey", "snevg04_java-project-71")
         property("sonar.organization", "sn-evg-04")
     }
+}
+
+tasks.named<Test>("test") {
+    useJUnitPlatform()
 }
