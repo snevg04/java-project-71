@@ -2,7 +2,8 @@
 [![Actions Status](https://github.com/snevg04/java-project-71/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/snevg04/java-project-71/actions)
 
 ### Asciinema demo:
-[![asciicast](https://asciinema.org/a/uuNrQMyQJMoun4Ri.svg)](https://asciinema.org/a/uuNrQMyQJMoun4Ri)
+[![asciicast](https://asciinema.org/a/kmNuGZ4Ihtqdq7GR.svg)](https://asciinema.org/a/kmNuGZ4Ihtqdq7GR)
+[![asciicast](https://asciinema.org/a/HcG2S6mscNBS8ejP.svg)](https://asciinema.org/a/HcG2S6mscNBS8ejP)
 
 ### GitHub Actions:
 [![Java CI with Gradle and SonarQube](https://github.com/snevg04/java-project-71/actions/workflows/build.yml/badge.svg)](https://github.com/snevg04/java-project-71/actions/workflows/build.yml)
