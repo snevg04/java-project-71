@@ -34,8 +34,8 @@ public class Parser {
                 });
                 break;
             case ("yaml"):
-                ObjectMapper yamlObjectMapper = new YAMLMapper();
-                map = yamlObjectMapper.readValue(contentFile, new TypeReference<>() {
+                YAMLMapper yamlMapper = new YAMLMapper();
+                map = yamlMapper.readValue(contentFile, new TypeReference<>() {
                 });
                 break;
             default:
