@@ -28,12 +28,12 @@ public class Parser {
         Map<String, Object> map = null;
 
         switch (defineFormat(filePath)) {
-            case("json"):
+            case ("json"):
                 ObjectMapper objectMapper = new ObjectMapper();
                 map = objectMapper.readValue(contentFile, new TypeReference<>() {
                 });
                 break;
-            case("yaml"):
+            case ("yaml"):
                 ObjectMapper yamlObjectMapper = new YAMLMapper();
                 map = yamlObjectMapper.readValue(contentFile, new TypeReference<>() {
                 });

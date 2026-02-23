@@ -1,7 +1,11 @@
 package hexlet.code;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Objects;
 
 public class Differ {
 
