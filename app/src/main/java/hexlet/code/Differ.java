@@ -1,17 +1,7 @@
 package hexlet.code;
 
-import tools.jackson.core.type.TypeReference;
-import tools.jackson.databind.ObjectMapper;
-
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Map;
-import java.util.HashSet;
-import java.util.ArrayList;
-import java.util.Objects;
-import java.util.Comparator;
+import java.util.*;
 
 public class Differ {
 
@@ -48,34 +38,8 @@ public class Differ {
 
     public static String generate(String filePath1, String filePath2) throws IOException {
 
-        if (filePath1 == null || filePath2 == null) {
-            throw new IllegalArgumentException("Illegal argument");
-        }
-
-        ObjectMapper objectMapper = new ObjectMapper();
-
-        Path file1 = Paths.get(filePath1);
-        Path file2 = Paths.get(filePath2);
-
-        var contentFile1 = Files.readString(file1).trim();
-        var contentFile2 = Files.readString(file2).trim();
-
-        if (contentFile1.isEmpty()) {
-            contentFile1 = "{}";
-        }
-
-        if (contentFile2.isEmpty()) {
-            contentFile2 = "{}";
-        }
-
-        Map<String, Object> map1
-                = objectMapper.readValue(contentFile1, new TypeReference<>() {
-
-                });
-
-        Map<String, Object> map2
-                = objectMapper.readValue(contentFile2, new TypeReference<>() {
-                });
+        Map<String, Object> map1 = Parser.parse(filePath1);
+        Map<String, Object> map2 = Parser.parse(filePath2);
 
         var allKeys = new HashSet<>(map1.keySet());
         allKeys.addAll(map2.keySet());
@@ -84,7 +48,7 @@ public class Differ {
 
         for (var key : allKeys) {
 
-            DiffEntry newEntry = null;
+            DiffEntry newEntry;
 
             if (map1.containsKey(key) && map2.containsKey(key)) {
 
