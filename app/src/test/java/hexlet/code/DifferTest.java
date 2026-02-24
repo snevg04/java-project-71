@@ -40,6 +40,15 @@ public class DifferTest {
     }
 
     @Test
+    public void generateNestedYamlTest() throws Exception {
+        var actual = Differ.generate(getFixturePath("file3.yaml").toString(),
+                getFixturePath("file4.yaml").toString());
+        var expected = readFixture("Right2.txt");
+
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
     public void missingJsonTest() throws Exception {
         assertThrows(IllegalArgumentException.class, () -> {
             Differ.generate(getFixturePath("file1.json").toString(), null);
