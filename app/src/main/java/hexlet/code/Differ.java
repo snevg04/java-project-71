@@ -1,6 +1,7 @@
 package hexlet.code;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashSet;
@@ -9,7 +10,7 @@ import java.util.Objects;
 
 public class Differ {
 
-    private static class DiffEntry {
+    public static class DiffEntry {
 
         String key;
         String status;
@@ -38,6 +39,7 @@ public class Differ {
         public Object getNewValue() {
             return newValue;
         }
+
     }
 
     public static String generate(String filePath1, String filePath2) throws IOException {
@@ -70,6 +72,7 @@ public class Differ {
                 newEntry = new DiffEntry(key, "added", map2.get(key), null);
             }
 
+
             entries.add(newEntry);
         }
 
@@ -78,56 +81,16 @@ public class Differ {
                 .toList();
 
         var result = new StringBuilder();
+        var stylish = new Stylish();
 
         result.append("{\n");
 
         for (var entry : sortedEntries) {
-
-            var status = entry.getStatus();
-
-            switch (status) {
-                case "added":
-                    buildNormal(result, '+', entry.getKey(), entry.getOldValue());
-                    break;
-                case "removed":
-                    buildNormal(result, '-', entry.getKey(), entry.getOldValue());
-                    break;
-                case "unchanged":
-                    buildNormal(result, ' ', entry.getKey(), entry.getOldValue());
-                    break;
-                case "changed":
-                    buildChanged(result, entry.getKey(), entry.getOldValue(), entry.getNewValue());
-                    break;
-                default:
-                    break;
-            }
+            result.append(stylish.build(entry));
         }
 
         result.append("}");
-
         return result.toString();
     }
 
-    public static void buildNormal(StringBuilder sb, char status, Object key, Object oldValue) {
-        sb.append("  ")
-                .append(status)
-                .append(" ")
-                .append(key)
-                .append(": ")
-                .append(oldValue)
-                .append("\n");
-    }
-
-    public static void buildChanged(StringBuilder sb, String key, Object oldValue, Object newValue) {
-        sb.append("  - ")
-                .append(key)
-                .append(": ")
-                .append(oldValue)
-                .append("\n")
-                .append("  + ")
-                .append(key)
-                .append(": ")
-                .append(newValue)
-                .append("\n");
-    }
 }
