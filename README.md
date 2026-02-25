@@ -4,6 +4,7 @@
 ### Asciinema demo:
 [![asciicast](https://asciinema.org/a/kmNuGZ4Ihtqdq7GR.svg)](https://asciinema.org/a/kmNuGZ4Ihtqdq7GR)
 [![asciicast](https://asciinema.org/a/HcG2S6mscNBS8ejP.svg)](https://asciinema.org/a/HcG2S6mscNBS8ejP)
+[![asciicast](https://asciinema.org/a/TEy0YA4KR4hEkGeH.svg)](https://asciinema.org/a/TEy0YA4KR4hEkGeH)
 
 ### GitHub Actions:
 [![Java CI with Gradle and SonarQube](https://github.com/snevg04/java-project-71/actions/workflows/build.yml/badge.svg)](https://github.com/snevg04/java-project-71/actions/workflows/build.yml)
