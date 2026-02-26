@@ -1,7 +1,6 @@
 package hexlet.code;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashSet;
@@ -42,7 +41,7 @@ public class Differ {
 
     }
 
-    public static String generate(String filePath1, String filePath2) throws IOException {
+    public static String generate(String filePath1, String filePath2, Builder formatter) throws IOException {
 
         Map<String, Object> map1 = Parser.parse(filePath1);
         Map<String, Object> map2 = Parser.parse(filePath2);
@@ -69,9 +68,8 @@ public class Differ {
             } else if (map1.containsKey(key) && !map2.containsKey(key)) {
                 newEntry = new DiffEntry(key, "removed", map1.get(key), null);
             } else {
-                newEntry = new DiffEntry(key, "added", map2.get(key), null);
+                newEntry = new DiffEntry(key, "added", null, map2.get(key));
             }
-
 
             entries.add(newEntry);
         }
@@ -81,16 +79,23 @@ public class Differ {
                 .toList();
 
         var result = new StringBuilder();
-        var stylish = new Stylish();
 
-        result.append("{\n");
-
-        for (var entry : sortedEntries) {
-            result.append(stylish.build(entry));
+        if (formatter instanceof Stylish) {
+            result.append("{\n");
         }
 
-        result.append("}");
+        for (var entry : sortedEntries) {
+            result.append(formatter.build(entry));
+        }
+
+        if (formatter instanceof Stylish) {
+            result.append("}");
+        }
+
+        if (formatter instanceof Plain && result.charAt(result.length() - 1) == '\n') {
+            result.deleteCharAt(result.length() - 1);
+        }
+
         return result.toString();
     }
-
 }
