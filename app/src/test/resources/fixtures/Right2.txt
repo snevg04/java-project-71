@@ -1,7 +1,7 @@
 {
+    chars1: [a, b, c]
   - chars2: [d, e, f]
   + chars2: false
-    chars1: [a, b, c]
   - checked: false
   + checked: true
   - default: null
