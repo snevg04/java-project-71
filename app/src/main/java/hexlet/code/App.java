@@ -22,12 +22,19 @@ class App implements Callable<Integer> {
     private String filePath2;
 
     @Option(names = {"-f", "--format"}, paramLabel = "format", description = "output format [default: stylish]")
-    private String format;
+    private String format = "stylish";
 
     @Override
     public Integer call() throws Exception {
 
-        var diff = Differ.generate(filePath1, filePath2);
+        Builder formatter = new Stylish();
+
+        if (format.equals("plain")) {
+            formatter = new Plain();
+        }
+
+        var diff = Differ.generate(filePath1, filePath2, formatter);
+
         System.out.println(diff);
 
         return 0;
