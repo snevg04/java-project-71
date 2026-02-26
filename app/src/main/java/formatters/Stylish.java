@@ -1,4 +1,7 @@
-package hexlet.code;
+package formatters;
+
+import hexlet.code.Builder;
+import hexlet.code.Differ;
 
 public class Stylish implements Builder {
 
