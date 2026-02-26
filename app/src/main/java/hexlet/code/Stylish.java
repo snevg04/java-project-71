@@ -1,10 +1,5 @@
 package hexlet.code;
 
-import java.lang.reflect.Array;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 public class Stylish implements Builder {
 
     public String build(Differ.DiffEntry entry) {
@@ -15,7 +10,7 @@ public class Stylish implements Builder {
 
         switch (status) {
             case "added":
-                buildNormal(result, '+', entry.getKey(), entry.getOldValue());
+                buildNormal(result, '+', entry.getKey(), entry.getNewValue());
                 break;
             case "removed":
                 buildNormal(result, '-', entry.getKey(), entry.getOldValue());
@@ -33,13 +28,13 @@ public class Stylish implements Builder {
         return result.toString();
     }
 
-    public static void buildNormal(StringBuilder sb, char status, Object key, Object oldValue) {
+    public static void buildNormal(StringBuilder sb, char status, Object key, Object value) {
         sb.append("  ")
                 .append(status)
                 .append(" ")
                 .append(key)
                 .append(": ")
-                .append(oldValue)
+                .append(value)
                 .append("\n");
     }
 
@@ -58,9 +53,3 @@ public class Stylish implements Builder {
     }
 
 }
-
-
-//Object oldValue = null;
-//        if ((entry.getOldValue()) instanceof String) {
-//            oldValue = entry.getOldValue();
-//        }
