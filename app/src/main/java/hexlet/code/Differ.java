@@ -1,5 +1,8 @@
 package hexlet.code;
 
+import formatters.Plain;
+import formatters.Stylish;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;

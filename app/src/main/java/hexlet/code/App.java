@@ -1,5 +1,7 @@
 package hexlet.code;
 
+import formatters.Plain;
+import formatters.Stylish;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
@@ -22,17 +24,12 @@ class App implements Callable<Integer> {
     private String filePath2;
 
     @Option(names = {"-f", "--format"}, paramLabel = "format", description = "output format [default: stylish]")
-    private String format = "stylish";
+    private String format;
 
     @Override
     public Integer call() throws Exception {
 
-        Builder formatter = new Stylish();
-
-        if (format.equals("plain")) {
-            formatter = new Plain();
-        }
-
+        var formatter = Formatter.addNew(format);
         var diff = Differ.generate(filePath1, filePath2, formatter);
 
         System.out.println(diff);
