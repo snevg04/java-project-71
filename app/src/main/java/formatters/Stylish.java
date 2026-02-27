@@ -3,30 +3,38 @@ package formatters;
 import hexlet.code.Builder;
 import hexlet.code.Differ;
 
+import java.util.List;
+
 public class Stylish implements Builder {
 
-    public String build(Differ.DiffEntry entry) {
+    public String build(List<Differ.DiffEntry> entries) {
 
         var result = new StringBuilder();
 
-        var status = entry.getStatus();
+        result.append("{\n");
 
-        switch (status) {
-            case "added":
-                buildNormal(result, '+', entry.getKey(), entry.getNewValue());
-                break;
-            case "removed":
-                buildNormal(result, '-', entry.getKey(), entry.getOldValue());
-                break;
-            case "unchanged":
-                buildNormal(result, ' ', entry.getKey(), entry.getOldValue());
-                break;
-            case "changed":
-                buildChanged(result, entry.getKey(), entry.getOldValue(), entry.getNewValue());
-                break;
-            default:
-                break;
+        for (var entry : entries) {
+            var status = entry.getStatus();
+
+            switch (status) {
+                case "added":
+                    buildNormal(result, '+', entry.getKey(), entry.getNewValue());
+                    break;
+                case "removed":
+                    buildNormal(result, '-', entry.getKey(), entry.getValue());
+                    break;
+                case "unchanged":
+                    buildNormal(result, ' ', entry.getKey(), entry.getValue());
+                    break;
+                case "updated":
+                    buildUpdated(result, entry.getKey(), entry.getValue(), entry.getNewValue());
+                    break;
+                default:
+                    break;
+            }
         }
+
+        result.append("}");
 
         return result.toString();
     }
@@ -42,7 +50,7 @@ public class Stylish implements Builder {
     }
 
 
-    public static void buildChanged(StringBuilder sb, String key, Object oldValue, Object newValue) {
+    public static void buildUpdated(StringBuilder sb, String key, Object oldValue, Object newValue) {
         sb.append("  - ")
                 .append(key)
                 .append(": ")
