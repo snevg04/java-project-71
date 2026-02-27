@@ -1,5 +1,6 @@
 package hexlet.code;
 
+import formatters.Json;
 import formatters.Plain;
 import formatters.Stylish;
 import org.junit.jupiter.api.Test;
@@ -51,10 +52,19 @@ public class DifferTest {
     }
 
     @Test
-    public void generatePlainTest() throws Exception {
+    public void generatePlainFormatTest() throws Exception {
         var actual = Differ.generate(getFixturePath("plain1.json").toString(),
                 getFixturePath("plain2.json").toString(), new Plain());
         var expected = readFixture("Right3.txt");
+
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void generateJsonFormatTest() throws Exception {
+        var actual = Differ.generate(getFixturePath("json1.json").toString(),
+                getFixturePath("json2.json").toString(), new Json());
+        var expected = readFixture("Right4.txt");
 
         Assertions.assertEquals(expected, actual);
     }
