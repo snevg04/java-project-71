@@ -1,0 +1,8 @@
+{
+  "chars1": ["a", "b", "c"],
+  "chars2": ["d", "e", "f"],
+  "checked": false,
+  "default": null,
+  "id": 45,
+  "key1": "value1"
+}

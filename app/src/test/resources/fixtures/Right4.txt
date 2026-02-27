@@ -1,0 +1,36 @@
+[ {
+  "key" : "chars1",
+  "status" : "unchanged",
+  "value" : [ "a", "b", "c" ],
+  "newValue" : null
+}, {
+  "key" : "chars2",
+  "status" : "updated",
+  "value" : [ "d", "e", "f" ],
+  "newValue" : false
+}, {
+  "key" : "checked",
+  "status" : "updated",
+  "value" : false,
+  "newValue" : true
+}, {
+  "key" : "default",
+  "status" : "updated",
+  "value" : null,
+  "newValue" : [ "value1", "value2" ]
+}, {
+  "key" : "id",
+  "status" : "updated",
+  "value" : 45,
+  "newValue" : null
+}, {
+  "key" : "key1",
+  "status" : "removed",
+  "value" : "value1",
+  "newValue" : null
+}, {
+  "key" : "obj1",
+  "status" : "added",
+  "value" : null,
+  "newValue" : null
+} ]

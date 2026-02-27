@@ -1,0 +1,11 @@
+{
+  "chars1": ["a", "b", "c"],
+  "chars2": false,
+  "checked": true,
+  "default": ["value1", "value2"],
+  "id": null,
+  "obj1": {
+    "nestedKey": "value",
+    "isNested": true
+  }
+}
