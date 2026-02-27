@@ -1,8 +1,5 @@
 package hexlet.code;
 
-import formatters.Plain;
-import formatters.Stylish;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -16,13 +13,13 @@ public class Differ {
 
         String key;
         String status;
-        Object oldValue;
+        Object value;
         Object newValue;
 
-        DiffEntry(String key, String status, Object oldValue, Object newValue) {
+        public DiffEntry(String key, String status, Object oldValue, Object newValue) {
             this.key = key;
             this.status = status;
-            this.oldValue = oldValue;
+            this.value = oldValue;
             this.newValue = newValue;
         }
 
@@ -34,8 +31,8 @@ public class Differ {
             return status;
         }
 
-        public Object getOldValue() {
-            return oldValue;
+        public Object getValue() {
+            return value;
         }
 
         public Object getNewValue() {
@@ -65,7 +62,7 @@ public class Differ {
                 if (change) {
                     newEntry = new DiffEntry(key, "unchanged", map1.get(key), null);
                 } else {
-                    newEntry = new DiffEntry(key, "changed", map1.get(key), map2.get(key));
+                    newEntry = new DiffEntry(key, "updated", map1.get(key), map2.get(key));
                 }
 
             } else if (map1.containsKey(key) && !map2.containsKey(key)) {
@@ -81,24 +78,6 @@ public class Differ {
                 .sorted(Comparator.comparing(DiffEntry::getKey))
                 .toList();
 
-        var result = new StringBuilder();
-
-        if (formatter instanceof Stylish) {
-            result.append("{\n");
-        }
-
-        for (var entry : sortedEntries) {
-            result.append(formatter.build(entry));
-        }
-
-        if (formatter instanceof Stylish) {
-            result.append("}");
-        }
-
-        if (formatter instanceof Plain && result.charAt(result.length() - 1) == '\n') {
-            result.deleteCharAt(result.length() - 1);
-        }
-
-        return result.toString();
+        return formatter.build(sortedEntries);
     }
 }
