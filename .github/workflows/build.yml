@@ -32,4 +32,4 @@ jobs:
       working-directory: app
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      run: ./gradlew build sonar
+      run: ./gradlew clean build jacocoTestReport sonar
