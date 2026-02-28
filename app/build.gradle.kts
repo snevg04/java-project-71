@@ -47,16 +47,14 @@ sonar {
     }
 }
 
-tasks.named<Test>("test") {
-    useJUnitPlatform()
-    finalizedBy(tasks.jacocoTestReport)
+tasks.register<JacocoReport>("jacocoTestReport") {
+    dependsOn(tasks.named("test"))
 }
 
-tasks.jacocoTestReport {
-    dependsOn(tasks.test)
-
+tasks.named<JacocoReport>("jacocoTestReport") {
     reports {
         xml.required.set(true)
-        html.required.set(true)
+        csv.required.set(false)
+        html.required.set(false)
     }
 }
