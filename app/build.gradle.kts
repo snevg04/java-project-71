@@ -1,5 +1,3 @@
-import sun.jvmstat.monitor.MonitoredVmUtil.mainClass
-
 plugins {
     id("java")
     id("com.github.ben-manes.versions") version "0.51.0"
@@ -29,10 +27,6 @@ dependencies {
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
-tasks.test {
-    useJUnitPlatform()
-}
-
 application {
     mainClass.set("hexlet.code.App")
 }
@@ -43,18 +37,20 @@ sonar {
         property("sonar.organization", "sn-evg-04")
         property(
             "sonar.coverage.jacoco.xmlReportPaths",
-            "${layout.buildDirectory.get()}/reports/jacoco/test/jacocoTestReport.xml")
+            "${layout.buildDirectory.get()}/reports/jacoco/test/jacocoTestReport.xml"
+        )
     }
 }
 
-tasks.register<JacocoReport>("jacocoTestReport") {
-    dependsOn(tasks.named("test"))
+tasks.named<Test>("test") {
+    useJUnitPlatform()
 }
 
 tasks.named<JacocoReport>("jacocoTestReport") {
+    dependsOn(tasks.test)
     reports {
         xml.required.set(true)
+        html.required.set(true)
         csv.required.set(false)
-        html.required.set(false)
     }
 }
