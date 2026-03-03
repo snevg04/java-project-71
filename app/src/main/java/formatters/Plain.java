@@ -6,7 +6,7 @@ import hexlet.code.Differ;
 import java.util.List;
 import java.util.Map;
 
-public class Plain implements Builder {
+public final class Plain implements Builder {
 
     public String build(List<Differ.DiffEntry> entries) {
 

@@ -5,7 +5,7 @@ import hexlet.code.Differ;
 
 import java.util.List;
 
-public class Stylish implements Builder {
+public final class Stylish implements Builder {
 
     public String build(List<Differ.DiffEntry> entries) {
 

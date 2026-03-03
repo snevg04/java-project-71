@@ -10,7 +10,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.ArrayList;
 
-public class Json implements Builder {
+public final class Json implements Builder {
 
     public String build(List<Differ.DiffEntry> entries) throws JsonProcessingException {
 

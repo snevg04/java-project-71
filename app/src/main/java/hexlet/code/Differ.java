@@ -9,12 +9,12 @@ import java.util.Objects;
 
 public class Differ {
 
-    public static class DiffEntry {
+    public static final class DiffEntry {
 
-        String key;
-        String status;
-        Object value;
-        Object newValue;
+        private String key;
+        private String status;
+        private Object value;
+        private Object newValue;
 
         public DiffEntry(String key, String status, Object oldValue, Object newValue) {
             this.key = key;
