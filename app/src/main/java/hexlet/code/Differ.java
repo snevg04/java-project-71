@@ -41,7 +41,7 @@ public class Differ {
 
     }
 
-    public static String generate(String filePath1, String filePath2, Builder formatter) throws IOException {
+    public static String generate(String filePath1, String filePath2, String format) throws IOException {
 
         Map<String, Object> map1 = Parser.parse(filePath1);
         Map<String, Object> map2 = Parser.parse(filePath2);
@@ -73,6 +73,8 @@ public class Differ {
 
             entries.add(newEntry);
         }
+
+        var formatter = Formatter.addNew(format);
 
         var sortedEntries = entries.stream()
                 .sorted(Comparator.comparing(DiffEntry::getKey))

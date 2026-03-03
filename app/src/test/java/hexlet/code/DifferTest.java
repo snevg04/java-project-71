@@ -1,8 +1,5 @@
 package hexlet.code;
 
-import formatters.Json;
-import formatters.Plain;
-import formatters.Stylish;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 
@@ -27,7 +24,7 @@ public class DifferTest {
     @Test
     public void generateJsonTest() throws Exception {
         var actual = Differ.generate(getFixturePath("file1.json").toString(),
-                getFixturePath("file2.json").toString(), new Stylish());
+                getFixturePath("file2.json").toString(), "stylish");
         var expected = readFixture("Right.txt");
 
         Assertions.assertEquals(expected, actual);
@@ -36,7 +33,7 @@ public class DifferTest {
     @Test
     public void generateYamlTest() throws Exception {
         var actual = Differ.generate(getFixturePath("file1.yaml").toString(),
-                getFixturePath("file2.yaml").toString(), new Stylish());
+                getFixturePath("file2.yaml").toString(), "stylish");
         var expected = readFixture("Right.txt");
 
         Assertions.assertEquals(expected, actual);
@@ -45,7 +42,7 @@ public class DifferTest {
     @Test
     public void generateNestedYamlTest() throws Exception {
         var actual = Differ.generate(getFixturePath("file3.yaml").toString(),
-                getFixturePath("file4.yaml").toString(), new Stylish());
+                getFixturePath("file4.yaml").toString(), "stylish");
         var expected = readFixture("Right2.txt");
 
         Assertions.assertEquals(expected, actual);
@@ -54,7 +51,7 @@ public class DifferTest {
     @Test
     public void generatePlainFormatTest() throws Exception {
         var actual = Differ.generate(getFixturePath("plain1.json").toString(),
-                getFixturePath("plain2.json").toString(), new Plain());
+                getFixturePath("plain2.json").toString(), "plain");
         var expected = readFixture("Right3.txt");
 
         Assertions.assertEquals(expected, actual);
@@ -63,7 +60,7 @@ public class DifferTest {
     @Test
     public void generateJsonFormatTest() throws Exception {
         var actual = Differ.generate(getFixturePath("json1.json").toString(),
-                getFixturePath("json2.json").toString(), new Json());
+                getFixturePath("json2.json").toString(), "json");
         var expected = readFixture("Right4.txt");
 
         Assertions.assertEquals(expected, actual);
@@ -72,21 +69,21 @@ public class DifferTest {
     @Test
     public void missingJsonTest() throws Exception {
         assertThrows(IllegalArgumentException.class, () -> {
-            Differ.generate(getFixturePath("file1.json").toString(), null, new Stylish());
+            Differ.generate(getFixturePath("file1.json").toString(), null, "stylish");
         });
     }
 
     @Test
     public void missingYamlTest() throws Exception {
         assertThrows(IllegalArgumentException.class, () -> {
-            Differ.generate(getFixturePath("file1.yaml").toString(), null, new Stylish());
+            Differ.generate(getFixturePath("file1.yaml").toString(), null, "stylish");
         });
     }
 
     @Test
     public void emptyJsonTest() throws Exception {
         var actual = Differ.generate(getFixturePath("file1.json").toString(),
-                getFixturePath("emptyFile.json").toString(), new Stylish());
+                getFixturePath("emptyFile.json").toString(), "stylish");
         var expected = readFixture("EmptyRight.txt");
 
         Assertions.assertEquals(expected, actual);
@@ -95,7 +92,7 @@ public class DifferTest {
     @Test
     public void emptyYamlTest() throws Exception {
         var actual = Differ.generate(getFixturePath("file1.yaml").toString(),
-                getFixturePath("emptyFile.yaml").toString(), new Stylish());
+                getFixturePath("emptyFile.yaml").toString(), "stylish");
         var expected = readFixture("EmptyRight.txt");
 
         Assertions.assertEquals(expected, actual);
@@ -104,7 +101,7 @@ public class DifferTest {
     @Test
     public void sameJsonTest() throws Exception {
         var actual = Differ.generate(getFixturePath("file1.json").toString(),
-                getFixturePath("file1.json").toString(), new Stylish());
+                getFixturePath("file1.json").toString(), "stylish");
         var expected = readFixture("SameRight.txt");
 
         Assertions.assertEquals(expected, actual);
@@ -113,7 +110,7 @@ public class DifferTest {
     @Test
     public void sameYamlTest() throws Exception {
         var actual = Differ.generate(getFixturePath("file1.yaml").toString(),
-                getFixturePath("file1.yaml").toString(), new Stylish());
+                getFixturePath("file1.yaml").toString(), "stylish");
         var expected = readFixture("SameRight.txt");
 
         Assertions.assertEquals(expected, actual);

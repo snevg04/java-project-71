@@ -25,7 +25,7 @@ class App implements Callable<Integer> {
     public Integer call() throws Exception {
 
         var formatter = Formatter.addNew(format);
-        var diff = Differ.generate(filePath1, filePath2, formatter);
+        var diff = Differ.generate(filePath1, filePath2, format);
 
         System.out.println(diff);
 
