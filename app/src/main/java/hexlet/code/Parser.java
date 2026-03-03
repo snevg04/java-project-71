@@ -25,7 +25,8 @@ public class Parser {
             contentFile = "{}";
         }
 
-        Map<String, Object> map = null;
+        Map<String, Object> map;
+        YAMLMapper yamlMapper = new YAMLMapper();
 
         switch (defineFormat(filePath)) {
             case ("json"):
@@ -34,7 +35,9 @@ public class Parser {
                 });
                 break;
             case ("yaml"):
-                YAMLMapper yamlMapper = new YAMLMapper();
+                map = yamlMapper.readValue(contentFile, new TypeReference<>() {
+                });
+            case ("yml"):
                 map = yamlMapper.readValue(contentFile, new TypeReference<>() {
                 });
                 break;
