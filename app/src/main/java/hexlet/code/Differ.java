@@ -82,4 +82,8 @@ public class Differ {
 
         return formatter.build(sortedEntries);
     }
+
+    public static String generate(String filePath1, String filePath2) throws IOException {
+        return generate(filePath1, filePath2, "stylish");
+    }
 }
