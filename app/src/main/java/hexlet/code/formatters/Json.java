@@ -15,8 +15,7 @@ public final class Json implements Builder {
     public String build(List<Differ.DiffEntry> entries) throws JsonProcessingException {
 
         ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.writerWithDefaultPrettyPrinter()
-                .writeValueAsString(getJsonList(entries));
+        return objectMapper.writeValueAsString(getJsonList(entries));
     }
 
     private static List<Differ.DiffEntry> getJsonList(List<Differ.DiffEntry> entries) {

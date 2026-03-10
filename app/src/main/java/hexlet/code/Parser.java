@@ -5,40 +5,22 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Map;
 
 public class Parser {
-    public static Map<String, Object> parse(String filePath) throws IOException {
-
-        if (filePath == null) {
-            throw new IllegalArgumentException("Illegal argument");
-        }
-
-        Path file1 = Paths.get(filePath);
-
-        var contentFile = Files.readString(file1).trim();
-
-        if (contentFile.isEmpty()) {
-            contentFile = "{}";
-        }
+    public static Map<String, Object> parse(String content, String format) throws IOException {
 
         Map<String, Object> map;
         YAMLMapper yamlMapper = new YAMLMapper();
 
-        switch (defineFormat(filePath)) {
+        switch (format) {
             case ("json"):
                 ObjectMapper objectMapper = new ObjectMapper();
-                map = objectMapper.readValue(contentFile, new TypeReference<>() {
+                map = objectMapper.readValue(content, new TypeReference<>() {
                 });
                 break;
-            case ("yaml"):
-                map = yamlMapper.readValue(contentFile, new TypeReference<>() {
-                });
-            case ("yml"):
-                map = yamlMapper.readValue(contentFile, new TypeReference<>() {
+            case ("yaml"), ("yml"):
+                map = yamlMapper.readValue(content, new TypeReference<>() {
                 });
                 break;
             default:
@@ -46,11 +28,5 @@ public class Parser {
         }
 
         return map;
-    }
-
-    public static String defineFormat(String path) {
-        var pathSplit = path.split("/");
-        var lastElement = pathSplit[pathSplit.length - 1];
-        return lastElement.substring(lastElement.lastIndexOf(".") + 1);
     }
 }

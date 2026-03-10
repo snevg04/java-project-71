@@ -1,11 +1,10 @@
 package hexlet.code;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashSet;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Map;
-import java.util.Objects;
 
 public class Differ {
 
@@ -43,47 +42,45 @@ public class Differ {
 
     public static String generate(String filePath1, String filePath2, String format) throws IOException {
 
-        Map<String, Object> map1 = Parser.parse(filePath1);
-        Map<String, Object> map2 = Parser.parse(filePath2);
+        var content1 = getContent(filePath1);
+        var content2 = getContent(filePath2);
+        var format1 = defineFormat(filePath1);
+        var format2 = defineFormat(filePath2);
 
-        var allKeys = new HashSet<>(map1.keySet());
-        allKeys.addAll(map2.keySet());
+        Map<String, Object> map1 = Parser.parse(content1, format1);
+        Map<String, Object> map2 = Parser.parse(content2, format2);
 
-        var entries = new ArrayList<DiffEntry>();
-
-        for (var key : allKeys) {
-
-            DiffEntry newEntry;
-
-            if (map1.containsKey(key) && map2.containsKey(key)) {
-
-                var change = Objects.equals(map1.get(key), map2.get(key));
-
-                if (change) {
-                    newEntry = new DiffEntry(key, "unchanged", map1.get(key), null);
-                } else {
-                    newEntry = new DiffEntry(key, "updated", map1.get(key), map2.get(key));
-                }
-
-            } else if (map1.containsKey(key) && !map2.containsKey(key)) {
-                newEntry = new DiffEntry(key, "removed", map1.get(key), null);
-            } else {
-                newEntry = new DiffEntry(key, "added", null, map2.get(key));
-            }
-
-            entries.add(newEntry);
-        }
+        var entries = DiffBuilder.buildDiff(map1, map2);
 
         var formatter = Formatter.addNew(format);
 
-        var sortedEntries = entries.stream()
-                .sorted(Comparator.comparing(DiffEntry::getKey))
-                .toList();
-
-        return formatter.build(sortedEntries);
+        return formatter.build(entries);
     }
 
     public static String generate(String filePath1, String filePath2) throws IOException {
         return generate(filePath1, filePath2, "stylish");
+    }
+
+    public static String getContent(String filePath) throws IOException {
+
+        if (filePath == null) {
+            throw new IllegalArgumentException("Illegal argument");
+        }
+
+        Path file = Paths.get(filePath);
+
+        var content = Files.readString(file).trim();
+
+        if (content.isEmpty()) {
+            content = "{}";
+        }
+
+        return content;
+    }
+
+    public static String defineFormat(String path) {
+        Path filePath = Paths.get(path);
+        String fileName = filePath.getFileName().toString();
+        return fileName.substring(fileName.lastIndexOf(".") + 1);
     }
 }

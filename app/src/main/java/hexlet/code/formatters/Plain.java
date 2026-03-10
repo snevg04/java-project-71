@@ -36,35 +36,49 @@ public final class Plain implements Builder {
             }
 
             switch (status) {
+                case "unchanged":
+                    break;
                 case "added":
-                    result.append("Property " + "'")
-                            .append(key)
-                            .append("' was added with value: ")
-                            .append(newValue)
-                            .append("\n");
+                    buildAdded(result, key, newValue);
                     break;
                 case "removed":
-                    result.append("Property " + "'")
-                            .append(key)
-                            .append("' was removed")
-                            .append("\n");
+                    buildRemoved(result, key);
                     break;
                 case "updated":
-                    result.append("Property " + "'")
-                            .append(key)
-                            .append("' was updated. From ")
-                            .append(oldValue)
-                            .append(" to ")
-                            .append(newValue)
-                            .append("\n");
+                    buildUpdated(result, key, oldValue, newValue);
                     break;
                 default:
-                    break;
+                    throw new RuntimeException("Unknown status: " + status);
             }
         }
 
         result.deleteCharAt(result.length() - 1);
 
         return result.toString();
+    }
+
+    public static void buildAdded(StringBuilder sb, String key, Object value) {
+        sb.append("Property " + "'")
+                .append(key)
+                .append("' was added with value: ")
+                .append(value)
+                .append("\n");
+    }
+
+    public static void buildRemoved(StringBuilder sb, String key) {
+        sb.append("Property " + "'")
+                .append(key)
+                .append("' was removed")
+                .append("\n");
+    }
+
+    public static void buildUpdated(StringBuilder sb, String key, Object oldValue, Object newValue) {
+        sb.append("Property " + "'")
+                .append(key)
+                .append("' was updated. From ")
+                .append(oldValue)
+                .append(" to ")
+                .append(newValue)
+                .append("\n");
     }
 }
