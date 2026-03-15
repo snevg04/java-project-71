@@ -1,13 +1,13 @@
 package hexlet.code.formatters;
 
 import hexlet.code.Builder;
-import hexlet.code.Differ;
+import hexlet.code.DiffBuilder;
 
 import java.util.List;
 
 public final class Stylish implements Builder {
 
-    public String build(List<Differ.DiffEntry> entries) {
+    public String build(List<DiffBuilder.DiffEntry> entries) {
 
         var result = new StringBuilder();
 

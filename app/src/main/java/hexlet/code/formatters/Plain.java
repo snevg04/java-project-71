@@ -1,14 +1,14 @@
 package hexlet.code.formatters;
 
 import hexlet.code.Builder;
-import hexlet.code.Differ;
+import hexlet.code.DiffBuilder;
 
 import java.util.List;
 import java.util.Map;
 
 public final class Plain implements Builder {
 
-    public String build(List<Differ.DiffEntry> entries) {
+    public String build(List<DiffBuilder.DiffEntry> entries) {
 
         var result = new StringBuilder();
 
@@ -39,13 +39,26 @@ public final class Plain implements Builder {
                 case "unchanged":
                     break;
                 case "added":
-                    buildAdded(result, key, newValue);
+                    result.append("Property " + "'")
+                            .append(key)
+                            .append("' was added with value: ")
+                            .append(newValue)
+                            .append("\n");
                     break;
                 case "removed":
-                    buildRemoved(result, key);
+                    result.append("Property " + "'")
+                            .append(key)
+                            .append("' was removed")
+                            .append("\n");
                     break;
                 case "updated":
-                    buildUpdated(result, key, oldValue, newValue);
+                    result.append("Property " + "'")
+                            .append(key)
+                            .append("' was updated. From ")
+                            .append(oldValue)
+                            .append(" to ")
+                            .append(newValue)
+                            .append("\n");
                     break;
                 default:
                     throw new RuntimeException("Unknown status: " + status);
@@ -55,30 +68,5 @@ public final class Plain implements Builder {
         result.deleteCharAt(result.length() - 1);
 
         return result.toString();
-    }
-
-    public static void buildAdded(StringBuilder sb, String key, Object value) {
-        sb.append("Property " + "'")
-                .append(key)
-                .append("' was added with value: ")
-                .append(value)
-                .append("\n");
-    }
-
-    public static void buildRemoved(StringBuilder sb, String key) {
-        sb.append("Property " + "'")
-                .append(key)
-                .append("' was removed")
-                .append("\n");
-    }
-
-    public static void buildUpdated(StringBuilder sb, String key, Object oldValue, Object newValue) {
-        sb.append("Property " + "'")
-                .append(key)
-                .append("' was updated. From ")
-                .append(oldValue)
-                .append(" to ")
-                .append(newValue)
-                .append("\n");
     }
 }
