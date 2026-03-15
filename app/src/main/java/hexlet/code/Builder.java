@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface Builder {
 
-    String build(List<Differ.DiffEntry> entries) throws JsonProcessingException;
+    String build(List<DiffBuilder.DiffEntry> entries) throws JsonProcessingException;
 
 }

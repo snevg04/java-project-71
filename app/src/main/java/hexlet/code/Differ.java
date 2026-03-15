@@ -4,41 +4,12 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Map;
 
 public class Differ {
 
-    public static final class DiffEntry {
 
-        private String key;
-        private String status;
-        private Object value;
-        private Object newValue;
-
-        public DiffEntry(String key, String status, Object oldValue, Object newValue) {
-            this.key = key;
-            this.status = status;
-            this.value = oldValue;
-            this.newValue = newValue;
-        }
-
-        public String getKey() {
-            return key;
-        }
-
-        public String getStatus() {
-            return status;
-        }
-
-        public Object getValue() {
-            return value;
-        }
-
-        public Object getNewValue() {
-            return newValue;
-        }
-
-    }
 
     public static String generate(String filePath1, String filePath2, String format) throws IOException {
 
@@ -50,7 +21,7 @@ public class Differ {
         Map<String, Object> map1 = Parser.parse(content1, format1);
         Map<String, Object> map2 = Parser.parse(content2, format2);
 
-        var entries = DiffBuilder.buildDiff(map1, map2);
+        List<DiffBuilder.DiffEntry> entries = DiffBuilder.buildDiff(map1, map2);
 
         var formatter = Formatter.addNew(format);
 
