@@ -24,7 +24,7 @@ public class Parser {
                 });
                 break;
             default:
-                throw new IllegalArgumentException("Illegal format");
+                throw new RuntimeException("Unknown format: " + format);
         }
 
         return map;
